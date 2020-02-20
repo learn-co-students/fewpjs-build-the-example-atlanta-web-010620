@@ -4,7 +4,30 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const errorBar = document.querySelector('#modal')
 
+const hearts = document.querySelectorAll('.like-glyph')
+
+hearts.forEach( function(heart) {
+  heart.addEventListener('click', function(e) {
+    mimicServerCall()
+    .then( function(response) {
+      if (heart.className === 'like-glyph') {
+        heart.className = "activated-heart"
+        heart.innerText = FULL_HEART
+      } else {
+        heart.className = "like-glyph"
+        heart.innerText = EMPTY_HEART
+      }
+    })
+    .catch(() => {
+      errorBar.className = ""
+      setTimeout(function() {
+        errorBar.className = "hidden"
+      }, 5000)
+    })
+  })
+})
 
 
 //------------------------------------------------------------------------------
